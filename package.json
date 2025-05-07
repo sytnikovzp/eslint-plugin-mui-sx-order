@@ -1,0 +1,16 @@
+{
+  "name": "eslint-plugin-sx-order",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "mui",
+    "sx",
+    "style",
+    "sort"
+  ],
+  "peerDependencies": {
+    "eslint": ">=7"
+  }
+}
