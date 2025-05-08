@@ -1,10 +1,28 @@
-# ESLint Plugin for Sorting MUI sx Properties by Best Practices
+# ESLint Plugin for Sorting MUI `sx` Properties
 
 This ESLint plugin helps maintain the correct order of properties in MUI (Material-UI) `sx` objects according to best practices. The plugin not only detects incorrect property order but also automatically fixes it using the `--fix` flag.
 
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/sytnikovzp/eslint-plugin-mui-sx-order" alt="Last Commit">
 </p>
+
+## How the Sorting Works
+
+The rule sorts both **top-level** properties and **nested** style objects. For example, if an object has nested styles like `&:before`, they will be sorted according to the same order as the top-level properties.
+
+The sorting follows this order:
+
+1. **Positioning**: `position`, `top`, `right`, `zIndex`, and others.
+2. **Display & Layout**: `display`, `boxSizing`, `visibility`, and others.
+3. **Flexbox**: `flex`, `flexBasis`, `flexDirection`, and others.
+4. **Grid**: `grid`, `gridArea`, `gridTemplate`, and others.
+5. **Spacing & Box Model**: `width`, `minWidth`, `maxWidth`, and others.
+6. **Typography**: `font`, `fontFamily`, `fontSize`, and others.
+7. **Background & Effects**: `background`, `backgroundColor`, `boxShadow`, and others.
+8. **Transitions & Animations**: `transition`, `animation`, `transform`, and others.
+
+Each key is sorted according to the preferred order. Nested objects are also sorted recursively.
+The plugin also ensures that media queries (`xs`, `sm`, `md`) and pseudo-classes (e.g., `&:hover`) are placed at the end of the object.
 
 ## Example
 
@@ -89,7 +107,7 @@ module.exports = {
 
 #### For `.eslintrc` or `.eslintrc.json` (JSON format):
 
-If you're using a `.eslintrc` or `.eslintrc.json` configuration (note that .eslintrc is deprecated in favor of .eslintrc.json), the configuration will look like this:
+If you're using a `.eslintrc` or `.eslintrc.json` configuration, the configuration will look like this:
 
 ```json
 {
@@ -131,28 +149,10 @@ This will automatically fix the property order in all files that ESLint checks. 
 npx eslint --fix src/components/MyComponent.jsx
 ```
 
-## How the Sorting Works
-
-The rule sorts both **top-level** properties and **nested** style objects. For example, if an object has nested styles like `&:before`, they will be sorted according to the same order as the top-level properties.
-
-The sorting follows this order:
-
-1. **Positioning**: `position`, `top`, `right`, `zIndex`, and others.
-2. **Display & Layout**: `display`, `boxSizing`, `visibility`, and others.
-3. **Flexbox**: `flex`, `flexBasis`, `flexDirection`, and others.
-4. **Grid**: `grid`, `gridArea`, `gridTemplate`, and others.
-5. **Spacing & Box Model**: `width`, `minWidth`, `maxWidth`, and others.
-6. **Typography**: `font`, `fontFamily`, `fontSize`, and others.
-7. **Background & Effects**: `background`, `backgroundColor`, `boxShadow`, and others.
-8. **Transitions & Animations**: `transition`, `animation`, `transform`, and others.
-
-Each key is sorted according to the preferred order. Nested objects are also sorted recursively.
-The plugin also ensures that media queries (`xs`, `sm`, `md`) and pseudo-classes (e.g., `&:hover`) are placed at the end of the object.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 
-<p align="center">© 2025 Alexandr Sytnikov</p>
+<p align="center">© 2025 <a href="https://github.com/sytnikovzp">Alexandr Sytnikov</a></p>
