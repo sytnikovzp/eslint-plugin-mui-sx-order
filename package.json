@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/sytnikovzp/eslint-plugin-mui-sx-order#readme",
   "peerDependencies": {
-    "eslint": "^8.0.0"
+    "eslint": ">=7"
   },
   "engines": {
     "node": ">=18"
