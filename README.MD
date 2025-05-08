@@ -82,6 +82,10 @@ This rule sorts the `sx` properties according to predefined categories, which in
 
 The plugin also ensures that media queries (`xs`, `sm`, `md`) and pseudo-classes (e.g., `&:hover`) are placed at the end of the object.
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
 ---
 
 <p align="center">© 2025 Alexandr Sytnikov</p>
