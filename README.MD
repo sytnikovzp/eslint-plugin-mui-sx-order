@@ -1,85 +1,152 @@
-# ESLint Plugin for MUI sx Key Order
+# ESLint Plugin for Sorting MUI sx Properties by Best Practices
 
-A simple ESLint plugin that ensures Material-UI `sx` prop keys are sorted according to best practices, improving code consistency and maintainability.
+This ESLint plugin helps maintain the correct order of properties in MUI (Material-UI) `sx` objects according to best practices. The plugin not only detects incorrect property order but also automatically fixes it using the `--fix` flag.
 
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/sytnikovzp/eslint-plugin-mui-sx-order" alt="Last Commit">
 </p>
 
-## Installation
+## Example
 
-To install this plugin, run the following command in your project:
+Let's say you have the following style object with an incorrect property order:
+
+#### Before Sorting (Incorrect Order):
+
+```jsx
+<Box
+  sx={{
+    '&:before': {
+      display: 'block',
+      bgcolor: 'background.paper',
+      content: '""',
+      position: 'absolute',
+      right: { sm: 25, xs: 22 },
+      top: 0,
+      transform: 'translateY(-50%) rotate(45deg)',
+      height: 10,
+      width: 10,
+      zIndex: 0,
+    },
+    width: 300,
+    padding: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+  }}
+/>
+```
+
+As you can see, the properties in the object do not follow the recommended order.
+
+#### After Sorting (Correct Order):
+
+```jsx
+<Box
+  sx={{
+    display: 'flex',
+    justifyContent: 'center',
+    width: 300,
+    padding: '20px',
+    '&:before': {
+      position: 'absolute',
+      top: 0,
+      right: { xs: 22, sm: 25 },
+      zIndex: 0,
+      display: 'block',
+      width: 10,
+      height: 10,
+      bgcolor: 'background.paper',
+      content: '""',
+      transform: 'translateY(-50%) rotate(45deg)',
+    },
+  }}
+/>
+```
+
+The plugin automatically sorts the properties, following best practices for MUI `sx` objects.
+
+## How to Use
+
+### 1. Install the plugin to your project:
 
 ```bash
 npm i -D eslint-plugin-mui-sx-order
 ```
 
-## Usage
+### 2. Configuration
 
-### ESLint Configuration
+#### For `.eslintrc.js` (CommonJS format):
 
-To enable the plugin, add it to your ESLint configuration file:
+If you're using an ESLint configuration file in JavaScript (`.eslintrc.js`), you should configure the plugin as follows:
 
-```json
-{
-  "extends": ["plugin:mui-sx-order/recommended"],
-  "plugins": ["mui-sx-order"]
-}
+```javascript
+module.exports = {
+  plugins: ['mui-sx-order'],
+  rules: {
+    'mui-sx-order/sort-sx-properties': 'warn',
+  },
+};
 ```
 
-### Rule Configuration
+#### For `.eslintrc` or `.eslintrc.json` (JSON format):
 
-By default, the plugin will sort your `sx` prop keys according to the best practices for Material-UI. The rule can be configured as follows:
+If you're using a `.eslintrc` or `.eslintrc.json` configuration (note that .eslintrc is deprecated in favor of .eslintrc.json), the configuration will look like this:
 
 ```json
 {
+  "plugins": ["mui-sx-order"],
   "rules": {
-    "mui-sx-order/sort-sx-keys": "warn"
+    "mui-sx-order/sort-sx-properties": "warn"
   }
 }
 ```
 
-### Example
+#### For `.eslint.config.js` (ES module format):
 
-#### Incorrect Code (not sorted)
+If you're using an ESLint configuration file with ES module syntax (`.eslint.config.js`), the configuration will look like this:
 
-```jsx
-<Box
-  sx={{
-    width: 300,
-    padding: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-  }}
-/>
+```javascript
+import muiSxOrder from 'eslint-plugin-mui-sx-order';
+
+export default {
+  plugins: {
+    'mui-sx-order': muiSxOrder,
+  },
+  rules: {
+    'mui-sx-order/sort-sx-properties': 'warn',
+  },
+};
 ```
 
-#### Correct Code (sorted)
+### 3. Automatically Fix Property Order
 
-```jsx
-<Box
-  sx={{
-    display: 'flex',
-    justifyContent: 'center',
-    width: 300,
-    padding: '20px',
-  }}
-/>
+To automatically fix the property order in your code, you can run:
+
+```bash
+npx eslint --fix .
 ```
 
-## Rule Details
+This will automatically fix the property order in all files that ESLint checks. You can also run it on specific files or directories, for example:
 
-This rule sorts the `sx` properties according to predefined categories, which include:
+```bash
+npx eslint --fix src/components/MyComponent.jsx
+```
 
-- **Positioning** (e.g., `position`, `top`, `right`, `zIndex`)
-- **Display & Layout** (e.g., `display`, `boxSizing`, `visibility`, `overflow`)
-- **Flexbox** (e.g., `flex`, `flexDirection`, `justifyContent`, `alignItems`)
-- **Grid** (e.g., `grid`, `gridTemplateColumns`, `gridRow`, `gridColumn`)
-- **Spacing & Box Model** (e.g., `width`, `height`, `margin`, `padding`)
-- **Typography** (e.g., `fontSize`, `lineHeight`, `fontWeight`, `color`)
-- **Background & Effects** (e.g., `background`, `boxShadow`, `opacity`)
-- **Responsive Design** (e.g., `xs`, `sm`, `md`, `lg`)
+## How the Sorting Works
 
+The rule sorts both **top-level** properties and **nested** style objects. For example, if an object has nested styles like `&:before`, they will be sorted according to the same order as the top-level properties.
+
+The sorting follows this order:
+
+1. **Positioning**: `position`, `top`, `right`, `zIndex`, and others.
+2. **Display & Layout**: `display`, `boxSizing`, `visibility`, and others.
+3. **Flexbox**: `flex`, `flexBasis`, `flexDirection`, and others.
+4. **Grid**: `grid`, `gridArea`, `gridTemplate`, and others.
+5. **Spacing & Box Model**: `width`, `minWidth`, `maxWidth`, and others.
+6. **Typography**: `font`, `fontFamily`, `fontSize`, and others.
+7. **Background & Effects**: `background`, `backgroundColor`, `boxShadow`, and others.
+8. **Transitions & Animations**: `transition`, `animation`, `transform`, and others.
+
+Each key is sorted according to the preferred order. Nested objects are also sorted recursively.
 The plugin also ensures that media queries (`xs`, `sm`, `md`) and pseudo-classes (e.g., `&:hover`) are placed at the end of the object.
 
 ## License
