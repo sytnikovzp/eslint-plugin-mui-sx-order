@@ -1,14 +1,27 @@
 {
   "name": "eslint-plugin-mui-sx-order",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "An ESLint plugin to sort MUI sx/style keys by best practices",
   "main": "index.js",
+  "type": "commonjs",
+  "files": [
+    "index.js",
+    "lib/"
+  ],
   "keywords": [
     "eslint",
+    "plugin",
     "eslintplugin",
+    "eslint plugin",
+    "eslint-plugin",
+    "material-ui",
+    "material ui",
     "mui",
+    "mui sx order",
     "sx",
+    "sx-order",
     "style",
+    "order",
     "sort"
   ],
   "author": "Alexandr Sytnikov <sytnikov.zp@gmail.com>",
@@ -22,9 +35,9 @@
   },
   "homepage": "https://github.com/sytnikovzp/eslint-plugin-mui-sx-order#readme",
   "peerDependencies": {
-    "eslint": ">=7"
+    "eslint": "^8.0.0"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   }
 }

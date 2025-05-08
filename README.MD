@@ -34,7 +34,7 @@ By default, the plugin will sort your `sx` prop keys according to the best pract
 ```json
 {
   "rules": {
-    "mui-sx-order/sort-sx-keys": "error"
+    "mui-sx-order/sort-sx-keys": "warn"
   }
 }
 ```
