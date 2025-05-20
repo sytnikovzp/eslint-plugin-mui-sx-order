@@ -1,7 +1,7 @@
 # ESLint Plugin for Sorting MUI sx Properties
 
 <p align="center">
-  <img width="384" height="256" src="./logo.png">
+  <img width="384" height="256" src="logo.png">
 </p>
 
 This ESLint plugin helps maintain the correct order of properties in MUI (Material-UI) `sx` objects according to best practices. The plugin not only detects incorrect property order but also automatically fixes it using the `--fix` flag.
