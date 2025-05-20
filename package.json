@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-mui-sx-order",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "An ESLint plugin to sort MUI sx/style keys by best practices",
   "main": "index.js",
   "type": "commonjs",
