@@ -1,4 +1,8 @@
-# ESLint Plugin for Sorting MUI `sx` Properties
+# ESLint Plugin for Sorting MUI sx Properties
+
+<p align="center">
+  <img width="384" height="256" src="./logo.png">
+</p>
 
 This ESLint plugin helps maintain the correct order of properties in MUI (Material-UI) `sx` objects according to best practices. The plugin not only detects incorrect property order but also automatically fixes it using the `--fix` flag.
 
@@ -152,7 +156,3 @@ npx eslint --fix src/components/MyComponent.jsx
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
----
-
-<p align="center">© 2025 <a href="https://github.com/sytnikovzp">Alexandr Sytnikov</a></p>
