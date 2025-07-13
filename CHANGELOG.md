@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.10](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.1.9...v1.1.10) (2025-07-13)
+
+
+### Bug Fixes
+
+* correct flow release on npmjs ([b376d0d](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/b376d0d0b2743cd36211673d957a940f43081018))
+* normalize changelog filename to lowercase ([39689ae](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/39689ae9ee60c6cf73a4333c9c811aa802130289))
+* normalize readme filename to lowercase ([7e73657](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/7e736573e869ce14218094901bbd8d72a25da054))
+
 ## [1.1.9](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.1.8...v1.1.9) (2025-07-13)
 
 ### Bug Fixes
