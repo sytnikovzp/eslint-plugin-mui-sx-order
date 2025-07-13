@@ -37,6 +37,9 @@
     "typescript"
   ],
   "author": "Oleksandr Sytnikov <sytnikov.zp@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "mocha tests/**/*.test.js"
   },
