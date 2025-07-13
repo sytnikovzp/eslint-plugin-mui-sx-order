@@ -20,7 +20,7 @@ jobs:
           direct-release: true
 
       - name: Get release tag
-        run: echo "Release tag: ${{ steps.release.outputs.release-tag }}"
+          run: echo "Release tag: ${{ steps.release.outputs.release_tag }}"
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
