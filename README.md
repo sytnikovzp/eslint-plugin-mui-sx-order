@@ -4,7 +4,7 @@
   <img width="576" height="384" src="./assets/demo.gif" alt="Demo GIF showing sorting sx properties automatically">
 </p>
 
-Automatically sort and organize **Material-UI (MUI) `sx` style properties** in your ESLint workflow.  
+Automatically sort and organize **Material-UI (MUI) sx style properties** in your ESLint workflow.  
 Improve code consistency, readability, and maintainability in **JavaScript** and **TypeScript** projects with zero manual effort.
 
 <p align="center">
@@ -26,11 +26,11 @@ Improve code consistency, readability, and maintainability in **JavaScript** and
 
 ## 🌟 Why Use This Plugin?
 
-If you use Material-UI (MUI) `sx` styling in your React projects, maintaining a consistent and logical order of style properties is important for readability and maintainability.
+If you use Material-UI (MUI) sx styling in your React projects, maintaining a consistent and logical order of style properties is important for readability and maintainability.
 
 This ESLint plugin helps you by:
 
-- Automatically sorting all `sx` properties based on an opinionated, industry-standard order
+- Automatically sorting all sx properties based on an opinionated, industry-standard order
 - Supporting nested selectors (like `&:hover`) and responsive keys (`xs`, `sm`, `md`)
 - Integrating seamlessly with your existing ESLint and Prettier setup
 - Working in both JavaScript and TypeScript projects
@@ -39,7 +39,7 @@ This ESLint plugin helps you by:
 
 ## ✨ Features
 
-- 📦 Automatic sorting of all MUI `sx` properties, including nested objects
+- 📦 Automatic sorting of all MUI sx properties, including nested objects
 - 🔥 Supports pseudo-classes, nested selectors, and media query keys
 - 🛠 Fully compatible with `eslint --fix` for auto-correction
 - ⚡ Lightweight, fast, and zero dependencies
@@ -48,7 +48,7 @@ This ESLint plugin helps you by:
 
 ## 🔥 Why not just use Prettier?
 
-Prettier is great for formatting, but it doesn’t understand the logical groups of MUI `sx` properties.
+Prettier is great for formatting, but it doesn’t understand the logical groups of MUI sx properties.
 This plugin enforces an opinionated order:
 
 1. **Positioning**: `position`, `top`, `right`, `zIndex`
@@ -126,7 +126,7 @@ You can automatically fix the property order using:
 npx eslint --fix .
 ```
 
-This will sort all `sx` properties in your project.
+This will sort all sx properties in your project.
 
 ---
 
