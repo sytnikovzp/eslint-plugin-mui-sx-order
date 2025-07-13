@@ -19,9 +19,6 @@ jobs:
           release-type: node
           direct-release: true
 
-      - name: Get release tag
-        run: echo "Release tag: ${{ steps.release.outputs.git-release-tag }}"
-      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
