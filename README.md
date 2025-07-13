@@ -1,4 +1,4 @@
-# 🚀 ESLint Plugin for Sorting MUI sx Properties Automatically
+# 🚀 ESLint Plugin to Auto-Sort MUI sx Properties
 
 <p align="center">
   <img width="576" height="384" src="./assets/demo.gif" alt="Demo GIF showing sorting sx properties automatically">
