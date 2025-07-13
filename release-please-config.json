@@ -1,5 +1,0 @@
-{
-  "release-type": "node",
-  "package-name": "eslint-plugin-mui-sx-order",
-  "bump-minor-pre-major": true
-}
