@@ -1,0 +1,19 @@
+name: Create Release PR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Release PR
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
