@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-mui-sx-order",
   "version": "1.1.7",
-  "description": "An ESLint plugin to sort MUI sx/style keys by best practices",
+  "description": "Auto-sorts MUI sx/style props for clean, consistent code with ESLint",
   "main": "index.js",
   "type": "commonjs",
   "files": [
@@ -10,21 +10,33 @@
   ],
   "keywords": [
     "eslint",
-    "plugin",
-    "eslintplugin",
-    "eslint plugin",
     "eslint-plugin",
+    "eslint plugin",
     "material-ui",
     "material ui",
     "mui",
-    "mui sx order",
     "sx",
-    "sx-order",
-    "style",
+    "sx order",
+    "mui sx order",
+    "mui style order",
+    "style order",
+    "autoformat",
+    "formatter",
+    "formatting",
+    "code formatting",
+    "sort",
+    "props sort",
     "order",
-    "sort"
+    "react",
+    "prettier",
+    "code style",
+    "code consistency",
+    "linters",
+    "frontend",
+    "javascript",
+    "typescript"
   ],
-  "author": "Alexandr Sytnikov <sytnikov.zp@gmail.com>",
+  "author": "Oleksandr Sytnikov <sytnikov.zp@gmail.com>",
   "scripts": {
     "test": "mocha tests/**/*.test.js"
   },
@@ -36,7 +48,7 @@
   "bugs": {
     "url": "https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/issues"
   },
-  "homepage": "https://github.com/sytnikovzp/eslint-plugin-mui-sx-order#readme",
+  "homepage": "https://github.com/sytnikovzp/eslint-plugin-mui-sx-order",
   "peerDependencies": {
     "eslint": ">=7"
   },
@@ -45,6 +57,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "mocha": "^11.4.0"
+    "mocha": "^11.7.1"
   }
 }
