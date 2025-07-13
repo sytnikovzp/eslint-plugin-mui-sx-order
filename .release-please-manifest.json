@@ -1,8 +1,10 @@
 {
-  "packages": {
-    "eslint-plugin-mui-sx-order": {
-      "version": "1.1.8",
-      "path": "."
+  "release-please": {
+    "packages": {
+      "eslint-plugin-mui-sx-order": {
+        "version": "1.1.8",
+        "path": "."
+      }
     }
   }
 }
