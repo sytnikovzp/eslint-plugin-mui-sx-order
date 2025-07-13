@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.13](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.1.12...v1.1.13) (2025-07-13)
+
+
+### Bug Fixes
+
+* new release ([86430d5](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/86430d50d0be75d40895cd00888593d3d76d57e1))
+
 ## [1.1.12](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.1.11...v1.1.12) (2025-07-13)
 
 
