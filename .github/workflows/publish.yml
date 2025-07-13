@@ -2,7 +2,7 @@ name: Publish npm on Release
 
 on:
   release:
-    types: [published]
+    types: [released]
     workflow_dispatch:
 
 jobs:
