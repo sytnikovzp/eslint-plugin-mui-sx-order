@@ -1,4 +1,4 @@
-name: Release Please
+name: Release and Publish
 
 on:
   push:
@@ -6,15 +6,31 @@ on:
       - main
 
 jobs:
-  release:
+  release-and-publish:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Release Please Action
+      - name: Run Release Please (direct release)
+        id: release
         uses: googleapis/release-please-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
           direct-release: true
+
+      - name: Get release tag
+        run: echo "Release tag: ${{ steps.release.outputs.release-tag }}"
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm ci
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
