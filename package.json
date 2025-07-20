@@ -59,7 +59,6 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
     "mocha": "^11.7.1"
   }
 }
