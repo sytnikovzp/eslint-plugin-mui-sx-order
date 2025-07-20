@@ -1,9 +1,9 @@
 name: Publish to npm on Release
 
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published, created, edited, prereleased]
+  workflow_dispatch:
 
 jobs:
   publish:
