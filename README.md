@@ -4,8 +4,7 @@
   <img width="576" height="384" src="./assets/demo.gif" alt="Demo GIF showing sorting sx properties automatically">
 </p>
 
-Automatically sort and organize **Material-UI (MUI) sx style properties** in your ESLint workflow.  
-Improve code consistency, readability, and maintainability in **JavaScript** and **TypeScript** projects with zero manual effort.
+An ESLint plugin that automatically sorts **Material-UI (MUI) `sx` style properties** for consistent, clean, and maintainable code. Supports JavaScript and TypeScript projects.
 
 <p align="center">
   <a href="https://www.npmjs.com/package/eslint-plugin-mui-sx-order">
@@ -26,38 +25,43 @@ Improve code consistency, readability, and maintainability in **JavaScript** and
 
 ## 🌟 Why Use This Plugin?
 
-If you use Material-UI (MUI) sx styling in your React projects, maintaining a consistent and logical order of style properties is important for readability and maintainability.
+Maintaining a **consistent and logical order of MUI `sx` style properties** is critical for:
 
-This ESLint plugin helps you by:
+- ✅ Code readability
+- ✅ Easier debugging and maintenance
+- ✅ Team-wide styling best practices
 
-- Automatically sorting all sx properties based on an opinionated, industry-standard order
-- Supporting nested selectors (like `&:hover`) and responsive keys (`xs`, `sm`, `md`)
-- Integrating seamlessly with your existing ESLint and Prettier setup
-- Working in both JavaScript and TypeScript projects
+This plugin:
+
+- 🔥 Automatically sorts `sx` properties in your React components
+- 📦 Supports nested selectors (`&:hover`) and responsive breakpoints (`xs`, `sm`, `md`)
+- ⚡ Works with ESLint and Prettier for a seamless developer experience
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- 📦 Automatic sorting of all MUI sx properties, including nested objects
+- 📦 **Automatic sorting** of all `sx` properties, even nested objects
 - 🔥 Supports pseudo-classes, nested selectors, and media query keys
-- 🛠 Fully compatible with `eslint --fix` for auto-correction
-- ⚡ Lightweight, fast, and zero dependencies
+- 🛠 Fully compatible with `eslint --fix`
+- 🚀 Supports JavaScript and TypeScript projects out of the box
+- ⚡ Zero dependencies → ultra-fast linting
 
 ---
 
 ## 🔥 Why not just use Prettier?
 
 Prettier is great for formatting, but it doesn’t understand the logical groups of MUI sx properties.
-This plugin enforces an opinionated order:
+This plugin enforces a best-practice order:
 
-1. **Positioning**: `position`, `top`, `right`, `zIndex`
-2. **Layout**: `display`, `flex`, `grid`
-3. **Spacing**: `margin`, `padding`
-4. **Typography**: `fontSize`, `color`
-5. **Background & Effects**: `backgroundColor`, `boxShadow`
-6. **Transitions**: `transition`, `transform`
-7. **Pseudo-classes & Media Queries**: `&:hover`, `xs`, `md`
+1. **Positioning**: `position`, `top`, `right`, `zIndex`, and others.
+2. **Display & Layout**: `display`, `boxSizing`, `visibility`, and others.
+3. **Flexbox**: `flex`, `flexBasis`, `flexDirection`, and others.
+4. **Grid**: `grid`, `gridArea`, `gridTemplate`, and others.
+5. **Spacing & Box Model**: `width`, `minWidth`, `maxWidth`, and others.
+6. **Typography**: `font`, `fontFamily`, `fontSize`, and others.
+7. **Background & Effects**: `background`, `backgroundColor`, `boxShadow`, and others.
+8. **Transitions & Animations**: `transition`, `animation`, `transform`, and others.
 
 ---
 
@@ -77,7 +81,7 @@ yarn add -D eslint-plugin-mui-sx-order
 
 ---
 
-## ⚙️ Configuration
+## ⚙️ Configuration Example
 
 ### For `.eslintrc.js` (CommonJS format):
 
@@ -118,7 +122,7 @@ export default {
 
 ---
 
-## 🛠 Auto-fix
+## 🛠 Usage & Auto-fix
 
 You can automatically fix the property order using:
 
@@ -127,6 +131,13 @@ npx eslint --fix .
 ```
 
 This will sort all sx properties in your project.
+
+---
+
+## 📢 Perfect for Teams & Open Source Projects
+
+Ensure a **consistent style guide** for all MUI projects in your team.
+Great for **large codebases** where property order matters for readability.
 
 ---
 
