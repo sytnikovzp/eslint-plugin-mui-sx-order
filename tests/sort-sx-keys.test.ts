@@ -1,13 +1,12 @@
-const { RuleTester } = require('eslint');
-const rule = require('../lib/rules/sort-sx-keys');
+import { RuleTester } from 'eslint';
+import rule from '../src/rules/sort-sx-keys';
 
-const ruleTester = new RuleTester({
-  languageOptions: {
+const ruleTester = new (RuleTester as any)({
+  parser: require.resolve('@typescript-eslint/parser'),
+  parserOptions: {
     ecmaVersion: 2022,
     sourceType: 'module',
-    parserOptions: {
-      ecmaFeatures: { jsx: true },
-    },
+    ecmaFeatures: { jsx: true },
   },
 });
 

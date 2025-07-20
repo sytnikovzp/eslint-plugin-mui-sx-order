@@ -176,14 +176,16 @@ const preferredOrder = [
   'md',
   'lg',
   'xl',
-];
+] as const;
 
-function getOrder(key) {
-  const index = preferredOrder.indexOf(key);
+type PreferredKey = (typeof preferredOrder)[number];
+
+function getOrder(key: string): number {
+  const index = preferredOrder.indexOf(key as PreferredKey);
 
   return index === -1
-    ? preferredOrder.length + (typeof key === 'string' ? key.charCodeAt(0) : 0)
+    ? preferredOrder.length + (key.length ? key.charCodeAt(0) : 0)
     : index;
 }
 
-module.exports = { preferredOrder, getOrder };
+export { preferredOrder, getOrder };

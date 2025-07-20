@@ -1,11 +1,14 @@
-function getKey(prop) {
+function getKey(prop: any): string {
   if (!prop.key) {
     return '';
   }
   return prop.key.name || prop.key.value || '';
 }
 
-function sortProperties(properties, getOrder) {
+function sortProperties(
+  properties: any[],
+  getOrder: (key: string) => number
+): any[] {
   return [...properties].sort((a, b) => {
     const aKey = getKey(a);
     const bKey = getKey(b);
@@ -13,8 +16,8 @@ function sortProperties(properties, getOrder) {
   });
 }
 
-function isStyleObjectName(name) {
+function isStyleObjectName(name: unknown): boolean {
   return typeof name === 'string' && name.toLowerCase().includes('style');
 }
 
-module.exports = { getKey, sortProperties, isStyleObjectName };
+export { getKey, sortProperties, isStyleObjectName };

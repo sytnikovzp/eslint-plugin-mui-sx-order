@@ -1,6 +1,11 @@
-const { sortProperties } = require('./propertyUtils');
+import type { Rule } from 'eslint';
+import { sortProperties } from './propertyUtils';
 
-function checkAndReport(context, node, getOrder) {
+function checkAndReport(
+  context: Rule.RuleContext,
+  node: any,
+  getOrder: (key: string) => number
+): void {
   const props = node.properties;
   if (!Array.isArray(props)) {
     return;
@@ -42,4 +47,4 @@ function checkAndReport(context, node, getOrder) {
   }
 }
 
-module.exports = { checkAndReport };
+export { checkAndReport };

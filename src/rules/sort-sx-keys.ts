@@ -1,13 +1,14 @@
-const { getOrder } = require('../utils/preferredOrder');
-const { isStyleObjectName } = require('../utils/propertyUtils');
-const { checkAndReport } = require('../utils/checkAndReport');
+import type { Rule } from 'eslint';
+import { getOrder } from '../utils/preferredOrder';
+import { isStyleObjectName } from '../utils/propertyUtils';
+import { checkAndReport } from '../utils/checkAndReport';
 
-module.exports = {
+const rule: Rule.RuleModule = {
   meta: {
     type: 'suggestion',
     docs: {
       description:
-        'Sort MUI sx keys or style objects according to best practice',
+        'Auto-sorts MUI sx/style props for clean, consistent code with ESLint',
       recommended: false,
     },
     fixable: 'code',
@@ -34,7 +35,7 @@ module.exports = {
 
       VariableDeclarator(node) {
         if (
-          node.id &&
+          node.id.type === 'Identifier' &&
           isStyleObjectName(node.id.name) &&
           node.init &&
           node.init.type === 'ObjectExpression'
@@ -50,7 +51,7 @@ module.exports = {
         ) {
           for (const decl of node.declaration.declarations) {
             if (
-              decl.id &&
+              decl.id.type === 'Identifier' &&
               isStyleObjectName(decl.id.name) &&
               decl.init &&
               decl.init.type === 'ObjectExpression'
@@ -63,6 +64,7 @@ module.exports = {
 
       CallExpression(node) {
         if (
+          node.callee.type === 'Identifier' &&
           node.callee.name === 'createStyles' &&
           node.arguments.length &&
           node.arguments[0].type === 'ObjectExpression'
@@ -73,3 +75,5 @@ module.exports = {
     };
   },
 };
+
+export default rule;
