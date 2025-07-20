@@ -1,11 +1,9 @@
 name: Publish package on npmjs.com
 
 on:
-  push:
+  create:
     tags:
       - 'v*'
-  release:
-    types: [published]
   workflow_dispatch:
 
 permissions:
