@@ -1,26 +1,47 @@
-name: Create Release PR
+name: Release
 
 on:
   push:
     branches:
       - main
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  release-pr:
+  release:
     runs-on: ubuntu-latest
     if: |
       github.actor != 'github-actions[bot]' &&
-      !contains(github.event.head_commit.message, 'chore(main): release') &&
-      github.event.head_commit.message != '' &&
-      !startsWith(github.event.head_commit.message, 'Merge pull request')
+      !startsWith(github.event.head_commit.message, 'chore(main): release')
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Create Release PR
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Release please
         uses: googleapis/release-please-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          draft: false
+          changelog-types: |
+            [
+              {"type": "feat", "section": "✨ Features", "hidden": false},
+              {"type": "fix", "section": "🐛 Bug Fixes", "hidden": false},
+              {"type": "chore", "section": "📦 Chore", "hidden": false},
+              {"type": "docs", "section": "📝 Docs", "hidden": false},
+              {"type": "refactor", "section": "♻️ Refactoring", "hidden": false},
+              {"type": "test", "section": "✅ Tests", "hidden": true}
+            ]
