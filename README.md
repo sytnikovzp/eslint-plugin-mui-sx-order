@@ -18,7 +18,7 @@ Improve code consistency, readability, and maintainability in **JavaScript** and
     <img src="https://img.shields.io/npm/l/eslint-plugin-mui-sx-order" alt="license" />
   </a>
   <a href="https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/sytnikovzp/eslint-plugin-mui-sx-order/release-please.yml?branch=main" alt="CI" />
+    <img src="https://img.shields.io/github/actions/workflow/status/sytnikovzp/eslint-plugin-mui-sx-order/release.yml?branch=main" alt="CI" />
   </a>
 </p>
 
