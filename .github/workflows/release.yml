@@ -9,7 +9,8 @@ jobs:
   release-pr:
     runs-on: ubuntu-latest
     if: |
-      !startsWith(github.event.head_commit.message, 'chore(main): release')
+      github.actor != 'github-actions[bot]' &&
+      !contains(github.event.head_commit.message, 'chore(main): release')
 
     steps:
       - uses: actions/checkout@v4
