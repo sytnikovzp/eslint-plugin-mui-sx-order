@@ -1,4 +1,5 @@
 import type { TSESLint } from '@typescript-eslint/utils';
+import type { TSESTree } from '@typescript-eslint/utils';
 import { getOrder } from '@/lib/utils/preferredOrder';
 import { isStyleObjectName } from '@/lib/utils/propertyUtils';
 import { checkAndReport } from '@/lib/utils/checkAndReport';
@@ -22,7 +23,7 @@ const rule: RuleModule = {
 
   create(context) {
     return {
-      JSXAttribute(node: any) {
+      JSXAttribute(node: TSESTree.JSXAttribute) {
         if (
           node.name.name !== 'sx' ||
           !node.value ||
@@ -35,7 +36,7 @@ const rule: RuleModule = {
         checkAndReport(context as any, node.value.expression, getOrder);
       },
 
-      VariableDeclarator(node: any) {
+      VariableDeclarator(node: TSESTree.VariableDeclarator) {
         if (
           node.id.type === 'Identifier' &&
           isStyleObjectName(node.id.name) &&
@@ -64,7 +65,7 @@ const rule: RuleModule = {
         }
       },
 
-      CallExpression(node: any) {
+      CallExpression(node: TSESTree.CallExpression) {
         if (
           node.callee.type === 'Identifier' &&
           node.callee.name === 'createStyles' &&

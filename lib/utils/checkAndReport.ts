@@ -1,20 +1,29 @@
-import type { Rule } from 'eslint';
+import type { TSESLint } from '@typescript-eslint/utils';
+import type { TSESTree } from '@typescript-eslint/utils';
 import { sortProperties } from '@/lib/utils/propertyUtils';
 
 function checkAndReport(
-  context: Rule.RuleContext,
-  node: any,
+  context: TSESLint.RuleContext<'incorrectOrder', []>,
+  node: TSESTree.ObjectExpression,
   getOrder: (key: string) => number
 ): void {
   const props = node.properties;
-  if (!Array.isArray(props)) {
-    return;
-  }
+  if (!Array.isArray(props)) return;
 
   const sorted = sortProperties(props, getOrder);
   const isSorted = props.every((prop, i) => prop === sorted[i]);
 
   if (!isSorted) {
+    if (!node.range) {
+      context.report({
+        node,
+        messageId: 'incorrectOrder',
+      });
+      return;
+    }
+
+    const [start, end] = node.range;
+
     context.report({
       node,
       messageId: 'incorrectOrder',
@@ -29,8 +38,6 @@ function checkAndReport(
         const indent = `${baseIndent}  `;
         const propsTexts = sorted.map((prop) => sourceCode.getText(prop));
         const sortedText = propsTexts.join(`,\n${indent}`);
-
-        const [start, end] = node.range;
 
         return fixer.replaceTextRange(
           [start + 1, end - 1],
