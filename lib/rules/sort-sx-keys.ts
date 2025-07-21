@@ -1,15 +1,16 @@
-import type { Rule } from 'eslint';
+import type { TSESLint } from '@typescript-eslint/utils';
 import { getOrder } from '../utils/preferredOrder';
 import { isStyleObjectName } from '../utils/propertyUtils';
 import { checkAndReport } from '../utils/checkAndReport';
 
-const rule: Rule.RuleModule = {
+type RuleModule = TSESLint.RuleModule<'incorrectOrder', []>;
+
+const rule: RuleModule = {
   meta: {
     type: 'suggestion',
     docs: {
       description:
         'Auto-sorts MUI sx/style props for clean, consistent code with ESLint',
-      recommended: false,
     },
     fixable: 'code',
     schema: [],
@@ -17,10 +18,11 @@ const rule: Rule.RuleModule = {
       incorrectOrder: 'Properties in sx/style should be sorted by priority.',
     },
   },
+  defaultOptions: [],
 
   create(context) {
     return {
-      JSXAttribute(node) {
+      JSXAttribute(node: any) {
         if (
           node.name.name !== 'sx' ||
           !node.value ||
@@ -30,21 +32,21 @@ const rule: Rule.RuleModule = {
           return;
         }
 
-        checkAndReport(context, node.value.expression, getOrder);
+        checkAndReport(context as any, node.value.expression, getOrder);
       },
 
-      VariableDeclarator(node) {
+      VariableDeclarator(node: any) {
         if (
           node.id.type === 'Identifier' &&
           isStyleObjectName(node.id.name) &&
           node.init &&
           node.init.type === 'ObjectExpression'
         ) {
-          checkAndReport(context, node.init, getOrder);
+          checkAndReport(context as any, node.init, getOrder);
         }
       },
 
-      ExportNamedDeclaration(node) {
+      ExportNamedDeclaration(node: any) {
         if (
           node.declaration &&
           node.declaration.type === 'VariableDeclaration'
@@ -56,20 +58,20 @@ const rule: Rule.RuleModule = {
               decl.init &&
               decl.init.type === 'ObjectExpression'
             ) {
-              checkAndReport(context, decl.init, getOrder);
+              checkAndReport(context as any, decl.init, getOrder);
             }
           }
         }
       },
 
-      CallExpression(node) {
+      CallExpression(node: any) {
         if (
           node.callee.type === 'Identifier' &&
           node.callee.name === 'createStyles' &&
           node.arguments.length &&
           node.arguments[0].type === 'ObjectExpression'
         ) {
-          checkAndReport(context, node.arguments[0], getOrder);
+          checkAndReport(context as any, node.arguments[0], getOrder);
         }
       },
     };
