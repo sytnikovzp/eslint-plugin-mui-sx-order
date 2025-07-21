@@ -1,5 +1,5 @@
 import { TSESLint } from '@typescript-eslint/utils';
-import rule from '../lib/rules/sort-sx-keys';
+import rule from '@/lib/rules/sort-sx-keys';
 
 const { RuleTester } = TSESLint;
 

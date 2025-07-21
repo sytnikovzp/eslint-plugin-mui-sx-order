@@ -1,7 +1,7 @@
 import type { TSESLint } from '@typescript-eslint/utils';
-import { getOrder } from '../utils/preferredOrder';
-import { isStyleObjectName } from '../utils/propertyUtils';
-import { checkAndReport } from '../utils/checkAndReport';
+import { getOrder } from '@/lib/utils/preferredOrder';
+import { isStyleObjectName } from '@/lib/utils/propertyUtils';
+import { checkAndReport } from '@/lib/utils/checkAndReport';
 
 type RuleModule = TSESLint.RuleModule<'incorrectOrder', []>;
 

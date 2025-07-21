@@ -11,7 +11,11 @@
     "declaration": true,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": ["lib"],
   "exclude": ["node_modules", "tests"]

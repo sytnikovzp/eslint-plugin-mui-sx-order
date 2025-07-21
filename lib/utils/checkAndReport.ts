@@ -1,5 +1,5 @@
 import type { Rule } from 'eslint';
-import { sortProperties } from './propertyUtils';
+import { sortProperties } from '@/lib/utils/propertyUtils';
 
 function checkAndReport(
   context: Rule.RuleContext,

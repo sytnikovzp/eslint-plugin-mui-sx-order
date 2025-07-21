@@ -1,4 +1,4 @@
-import sortSxKeys from './rules/sort-sx-keys';
+import sortSxKeys from '@/lib/rules/sort-sx-keys';
 
 export = {
   rules: {
