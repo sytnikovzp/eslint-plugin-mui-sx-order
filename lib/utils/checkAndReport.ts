@@ -29,20 +29,12 @@ function checkAndReport(
       messageId: 'incorrectOrder',
       fix(fixer) {
         const sourceCode = context.getSourceCode();
-        const text = sourceCode.getText(node);
 
-        const [firstLine] = text.split('\n');
-        const baseIndentMatch = firstLine.match(/^(\s*){/);
-        const baseIndent = baseIndentMatch ? baseIndentMatch[1] : '';
+        const sortedText = sorted
+          .map((prop) => sourceCode.getText(prop))
+          .join(', ');
 
-        const indent = `${baseIndent}  `;
-        const propsTexts = sorted.map((prop) => sourceCode.getText(prop));
-        const sortedText = propsTexts.join(`,\n${indent}`);
-
-        return fixer.replaceTextRange(
-          [start + 1, end - 1],
-          `\n${indent}${sortedText},\n${baseIndent}`
-        );
+        return fixer.replaceTextRange([start + 1, end - 1], ` ${sortedText} `);
       },
     });
   }
