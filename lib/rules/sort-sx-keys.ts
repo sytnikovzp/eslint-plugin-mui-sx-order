@@ -28,31 +28,40 @@ const rule: TSESLint.RuleModule<'incorrectOrder', []> = {
         checkAndReport(context, init, getOrder);
       } else if (init.type === 'ArrayExpression') {
         for (const elem of init.elements) {
-          if (elem?.type === 'ObjectExpression')
+          if (elem?.type === 'ObjectExpression') {
             checkAndReport(context, elem, getOrder);
+          }
         }
       }
     }
 
-    return {
-      JSXAttribute(node: TSESTree.JSXAttribute) {
-        if (
-          node.name.name !== 'sx' ||
-          !node.value ||
-          node.value.type !== 'JSXExpressionContainer'
-        )
-          return;
+    function checkJSXAttribute(node: TSESTree.JSXAttribute) {
+      if (
+        node.name.name !== 'sx' ||
+        !node.value ||
+        node.value.type !== 'JSXExpressionContainer'
+      )
+        return;
 
-        const expr = node.value.expression;
-        if (expr.type === 'ObjectExpression') {
-          checkAndReport(context, expr, getOrder);
-        } else if (expr.type === 'ArrayExpression') {
-          for (const elem of expr.elements) {
+      const expr = node.value.expression;
+
+      if (!expr || expr.type === 'JSXEmptyExpression') return;
+
+      const checkExpr = (e: TSESTree.Expression) => {
+        if (e.type === 'ObjectExpression') checkAndReport(context, e, getOrder);
+        else if (e.type === 'ArrayExpression') {
+          for (const elem of e.elements) {
             if (elem?.type === 'ObjectExpression')
               checkAndReport(context, elem, getOrder);
           }
         }
-      },
+      };
+
+      checkExpr(expr as TSESTree.Expression);
+    }
+
+    return {
+      JSXAttribute: checkJSXAttribute,
 
       VariableDeclarator(node: TSESTree.VariableDeclarator) {
         if (node.id.type === 'Identifier' && isStyleObjectName(node.id.name)) {
@@ -61,10 +70,7 @@ const rule: TSESLint.RuleModule<'incorrectOrder', []> = {
       },
 
       ExportNamedDeclaration(node: TSESTree.ExportNamedDeclaration) {
-        if (
-          node.declaration &&
-          node.declaration.type === 'VariableDeclaration'
-        ) {
+        if (node.declaration?.type === 'VariableDeclaration') {
           for (const decl of node.declaration.declarations) {
             if (
               decl.id.type === 'Identifier' &&
@@ -87,9 +93,8 @@ const rule: TSESLint.RuleModule<'incorrectOrder', []> = {
             checkAndReport(context, arg, getOrder);
           } else if (arg.type === 'ArrayExpression') {
             for (const elem of arg.elements) {
-              if (elem?.type === 'ObjectExpression') {
+              if (elem?.type === 'ObjectExpression')
                 checkAndReport(context, elem, getOrder);
-              }
             }
           }
         }

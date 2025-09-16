@@ -2,8 +2,11 @@ import type { TSESTree } from '@typescript-eslint/utils';
 
 function getKey(prop: TSESTree.ObjectLiteralElement): string {
   if (prop.type !== 'Property') return '';
-  if (prop.key.type === 'Identifier') return prop.key.name;
-  if (prop.key.type === 'Literal') return String(prop.key.value);
+  const key = prop.key;
+  if (key.type === 'Identifier') return key.name;
+  if (key.type === 'Literal') return String(key.value);
+  if (key.type === 'TemplateLiteral')
+    return key.quasis.map((q) => q.value.cooked).join('');
   return '';
 }
 
