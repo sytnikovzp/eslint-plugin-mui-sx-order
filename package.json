@@ -64,14 +64,14 @@
   },
   "devDependencies": {
     "@types/eslint": "^9.6.1",
-    "@types/node": "^24.0.15",
-    "@typescript-eslint/parser": "^8.37.0",
-    "@typescript-eslint/utils": "^8.37.0",
+    "@types/node": "^24.5.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "@typescript-eslint/utils": "^8.44.0",
     "eslint": "^8.57.1",
-    "mocha": "^11.7.1",
+    "mocha": "^11.7.2",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   }
 }

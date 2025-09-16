@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -36,6 +37,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
+          bump-minor-pre-major: true
           changelog-types: |
             [
               {"type": "feat", "section": "✨ Features", "hidden": false},
