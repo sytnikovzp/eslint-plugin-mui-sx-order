@@ -19,13 +19,9 @@ function checkAndReport(
       node,
       messageId: 'incorrectOrder',
       fix(fixer) {
+        const sourceCode = context.getSourceCode();
         const sortedText = sorted
-          .map((prop) => {
-            const tokens = context
-              .getSourceCode()
-              .getTokens(prop, { includeComments: true });
-            return tokens.map((t) => t.value).join('');
-          })
+          .map((prop) => sourceCode.getText(prop))
           .join(', ');
 
         return fixer.replaceTextRange([start + 1, end - 1], ` ${sortedText} `);

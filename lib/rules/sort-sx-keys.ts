@@ -17,29 +17,46 @@ const rule: TSESLint.RuleModule<'incorrectOrder', []> = {
     },
   },
   defaultOptions: [],
-
   create(context) {
+    function checkDeclarator(
+      id: TSESTree.Identifier,
+      init: TSESTree.Expression | null
+    ) {
+      if (!init) return;
+
+      if (init.type === 'ObjectExpression') {
+        checkAndReport(context, init, getOrder);
+      } else if (init.type === 'ArrayExpression') {
+        for (const elem of init.elements) {
+          if (elem?.type === 'ObjectExpression')
+            checkAndReport(context, elem, getOrder);
+        }
+      }
+    }
+
     return {
       JSXAttribute(node: TSESTree.JSXAttribute) {
         if (
           node.name.name !== 'sx' ||
           !node.value ||
-          node.value.type !== 'JSXExpressionContainer' ||
-          node.value.expression.type !== 'ObjectExpression'
+          node.value.type !== 'JSXExpressionContainer'
         )
           return;
 
-        checkAndReport(context, node.value.expression, getOrder);
+        const expr = node.value.expression;
+        if (expr.type === 'ObjectExpression') {
+          checkAndReport(context, expr, getOrder);
+        } else if (expr.type === 'ArrayExpression') {
+          for (const elem of expr.elements) {
+            if (elem?.type === 'ObjectExpression')
+              checkAndReport(context, elem, getOrder);
+          }
+        }
       },
 
       VariableDeclarator(node: TSESTree.VariableDeclarator) {
-        if (
-          node.id.type === 'Identifier' &&
-          isStyleObjectName(node.id.name) &&
-          node.init &&
-          node.init.type === 'ObjectExpression'
-        ) {
-          checkAndReport(context, node.init, getOrder);
+        if (node.id.type === 'Identifier' && isStyleObjectName(node.id.name)) {
+          checkDeclarator(node.id, node.init);
         }
       },
 
@@ -51,11 +68,9 @@ const rule: TSESLint.RuleModule<'incorrectOrder', []> = {
           for (const decl of node.declaration.declarations) {
             if (
               decl.id.type === 'Identifier' &&
-              isStyleObjectName(decl.id.name) &&
-              decl.init &&
-              decl.init.type === 'ObjectExpression'
+              isStyleObjectName(decl.id.name)
             ) {
-              checkAndReport(context, decl.init, getOrder);
+              checkDeclarator(decl.id, decl.init);
             }
           }
         }
@@ -65,10 +80,18 @@ const rule: TSESLint.RuleModule<'incorrectOrder', []> = {
         if (
           node.callee.type === 'Identifier' &&
           node.callee.name === 'createStyles' &&
-          node.arguments.length &&
-          node.arguments[0].type === 'ObjectExpression'
+          node.arguments.length
         ) {
-          checkAndReport(context, node.arguments[0], getOrder);
+          const arg = node.arguments[0];
+          if (arg.type === 'ObjectExpression') {
+            checkAndReport(context, arg, getOrder);
+          } else if (arg.type === 'ArrayExpression') {
+            for (const elem of arg.elements) {
+              if (elem?.type === 'ObjectExpression') {
+                checkAndReport(context, elem, getOrder);
+              }
+            }
+          }
         }
       },
     };

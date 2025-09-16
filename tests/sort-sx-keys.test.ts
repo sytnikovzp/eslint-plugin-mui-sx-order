@@ -43,6 +43,11 @@ ruleTester.run('sort-sx-keys', rule, {
         };
       `,
     },
+    {
+      code: `
+        <Box sx={[{ display: 'flex', justifyContent: 'center', alignItems: 'center' }]} />
+      `,
+    },
   ],
 
   invalid: [
@@ -80,7 +85,6 @@ ruleTester.run('sort-sx-keys', rule, {
         }} />
       `,
     },
-
     {
       code: `
         const styles = {
@@ -102,7 +106,6 @@ ruleTester.run('sort-sx-keys', rule, {
         };
       `,
     },
-
     {
       code: `
         <Box sx={[{ backgroundColor: 'blue', display: 'flex' }]} />
