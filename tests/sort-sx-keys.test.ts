@@ -14,7 +14,7 @@ ruleTester.run('sort-sx-keys', rule, {
   valid: [
     {
       code: `
-        const styles = {
+        const buttonStyle = {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -30,20 +30,38 @@ ruleTester.run('sort-sx-keys', rule, {
           alignItems: 'center',
           backgroundColor: 'blue',
         }} />
+      `,
+    },
+    {
+      code: `
+        const styles = {
+          display: 'flex',
+          '&:hover': {
+            color: 'red',
+            backgroundColor: 'yellow',
+          }
+        };
       `,
     },
   ],
+
   invalid: [
     {
       code: `
-        const styles = {
+        const buttonStyle = {
           backgroundColor: 'red',
           display: 'flex',
           justifyContent: 'center',
         };
       `,
       errors: [{ messageId: 'incorrectOrder' }],
-      output: `const styles = { display: 'flex', justifyContent: 'center', backgroundColor: 'red' };`,
+      output: `
+        const buttonStyle = {
+          display: 'flex',
+          justifyContent: 'center',
+          backgroundColor: 'red',
+        };
+      `,
     },
     {
       code: `
@@ -54,7 +72,45 @@ ruleTester.run('sort-sx-keys', rule, {
         }} />
       `,
       errors: [{ messageId: 'incorrectOrder' }],
-      output: `<Box sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'blue' }} />`,
+      output: `
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          backgroundColor: 'blue',
+        }} />
+      `,
+    },
+
+    {
+      code: `
+        const styles = {
+          display: 'flex',
+          '&:hover': {
+            backgroundColor: 'yellow',
+            color: 'red',
+          }
+        };
+      `,
+      errors: [{ messageId: 'incorrectOrder' }],
+      output: `
+        const styles = {
+          display: 'flex',
+          '&:hover': {
+            color: 'red',
+            backgroundColor: 'yellow',
+          }
+        };
+      `,
+    },
+
+    {
+      code: `
+        <Box sx={[{ backgroundColor: 'blue', display: 'flex' }]} />
+      `,
+      errors: [{ messageId: 'incorrectOrder' }],
+      output: `
+        <Box sx={[{ display: 'flex', backgroundColor: 'blue' }]} />
+      `,
     },
   ],
 });

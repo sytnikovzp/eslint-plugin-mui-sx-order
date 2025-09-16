@@ -1,6 +1,6 @@
-import sortSxKeys from '@/lib/rules/sort-sx-keys';
+import sortSxKeys from './rules/sort-sx-keys';
 
-export = {
+const plugin = {
   rules: {
     'sort-sx-keys': sortSxKeys,
   },
@@ -13,3 +13,5 @@ export = {
     },
   },
 };
+
+export = plugin;

@@ -182,10 +182,7 @@ type PreferredKey = (typeof preferredOrder)[number];
 
 function getOrder(key: string): number {
   const index = preferredOrder.indexOf(key as PreferredKey);
-
-  return index === -1
-    ? preferredOrder.length + (key.length ? key.charCodeAt(0) : 0)
-    : index;
+  return index === -1 ? preferredOrder.length + key.localeCompare('') : index;
 }
 
 export { preferredOrder, getOrder };

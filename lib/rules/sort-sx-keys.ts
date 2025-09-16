@@ -1,12 +1,9 @@
-import type { TSESLint } from '@typescript-eslint/utils';
-import type { TSESTree } from '@typescript-eslint/utils';
-import { getOrder } from '@/lib/utils/preferredOrder';
-import { isStyleObjectName } from '@/lib/utils/propertyUtils';
-import { checkAndReport } from '@/lib/utils/checkAndReport';
+import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
+import { getOrder } from '../utils/preferredOrder';
+import { isStyleObjectName } from '../utils/propertyUtils';
+import { checkAndReport } from '../utils/checkAndReport';
 
-type RuleModule = TSESLint.RuleModule<'incorrectOrder', []>;
-
-const rule: RuleModule = {
+const rule: TSESLint.RuleModule<'incorrectOrder', []> = {
   meta: {
     type: 'suggestion',
     docs: {
@@ -29,11 +26,10 @@ const rule: RuleModule = {
           !node.value ||
           node.value.type !== 'JSXExpressionContainer' ||
           node.value.expression.type !== 'ObjectExpression'
-        ) {
+        )
           return;
-        }
 
-        checkAndReport(context as any, node.value.expression, getOrder);
+        checkAndReport(context, node.value.expression, getOrder);
       },
 
       VariableDeclarator(node: TSESTree.VariableDeclarator) {
@@ -43,11 +39,11 @@ const rule: RuleModule = {
           node.init &&
           node.init.type === 'ObjectExpression'
         ) {
-          checkAndReport(context as any, node.init, getOrder);
+          checkAndReport(context, node.init, getOrder);
         }
       },
 
-      ExportNamedDeclaration(node: any) {
+      ExportNamedDeclaration(node: TSESTree.ExportNamedDeclaration) {
         if (
           node.declaration &&
           node.declaration.type === 'VariableDeclaration'
@@ -59,7 +55,7 @@ const rule: RuleModule = {
               decl.init &&
               decl.init.type === 'ObjectExpression'
             ) {
-              checkAndReport(context as any, decl.init, getOrder);
+              checkAndReport(context, decl.init, getOrder);
             }
           }
         }
@@ -72,7 +68,7 @@ const rule: RuleModule = {
           node.arguments.length &&
           node.arguments[0].type === 'ObjectExpression'
         ) {
-          checkAndReport(context as any, node.arguments[0], getOrder);
+          checkAndReport(context, node.arguments[0], getOrder);
         }
       },
     };
