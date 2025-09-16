@@ -19,6 +19,11 @@ function sortProperties(
     if (b.type !== 'Property') return 0;
     const aKey = getKey(a);
     const bKey = getKey(b);
+    
+    if (aKey.startsWith('&') || bKey.startsWith('&')) {
+      return 0;
+    }
+    
     return getOrder(aKey) - getOrder(bKey);
   });
 }

@@ -1,19 +1,22 @@
-import { TSESLint } from '@typescript-eslint/utils';
-import rule from '../lib/rules/sort-sx-keys';
-
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-    ecmaFeatures: { jsx: true },
-  },
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const utils_1 = require("@typescript-eslint/utils");
+const sort_sx_keys_1 = __importDefault(require("../lib/rules/sort-sx-keys"));
+const ruleTester = new utils_1.TSESLint.RuleTester({
+    parser: require.resolve('@typescript-eslint/parser'),
+    parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+        ecmaFeatures: { jsx: true },
+    },
 });
-
-ruleTester.run('sort-sx-keys', rule, {
-  valid: [
-    {
-      code: `
+ruleTester.run('sort-sx-keys', sort_sx_keys_1.default, {
+    valid: [
+        {
+            code: `
         const buttonStyle = {
           display: 'flex',
           justifyContent: 'center',
@@ -21,9 +24,9 @@ ruleTester.run('sort-sx-keys', rule, {
           backgroundColor: 'red',
         };
       `,
-    },
-    {
-      code: `
+        },
+        {
+            code: `
         <Box sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -31,9 +34,9 @@ ruleTester.run('sort-sx-keys', rule, {
           backgroundColor: 'blue',
         }} />
       `,
-    },
-    {
-      code: `
+        },
+        {
+            code: `
         const styles = {
           display: 'flex',
           '&:hover': {
@@ -42,14 +45,14 @@ ruleTester.run('sort-sx-keys', rule, {
           }
         };
       `,
-    },
-    {
-      code: `
+        },
+        {
+            code: `
         <Box sx={[{ display: 'flex', justifyContent: 'center', alignItems: 'center' }]} />
       `,
-    },
-    {
-      code: `
+        },
+        {
+            code: `
         const styles = {
           display: 'flex',
           '&:hover': {
@@ -58,52 +61,52 @@ ruleTester.run('sort-sx-keys', rule, {
           }
         };
       `,
-    },
-  ],
-
-  invalid: [
-    {
-      code: `
+        },
+    ],
+    invalid: [
+        {
+            code: `
         const buttonStyle = {
           backgroundColor: 'red',
           display: 'flex',
           justifyContent: 'center',
         };
       `,
-      errors: [{ messageId: 'incorrectOrder' }],
-      output: `
+            errors: [{ messageId: 'incorrectOrder' }],
+            output: `
         const buttonStyle = {
           display: 'flex',
           justifyContent: 'center',
           backgroundColor: 'red',
         };
       `,
-    },
-    {
-      code: `
+        },
+        {
+            code: `
         <Box sx={{
           backgroundColor: 'blue',
           display: 'flex',
           justifyContent: 'center',
         }} />
       `,
-      errors: [{ messageId: 'incorrectOrder' }],
-      output: `
+            errors: [{ messageId: 'incorrectOrder' }],
+            output: `
         <Box sx={{
           display: 'flex',
           justifyContent: 'center',
           backgroundColor: 'blue',
         }} />
       `,
-    },
-    {
-      code: `
+        },
+        {
+            code: `
         <Box sx={[{ backgroundColor: 'blue', display: 'flex' }]} />
       `,
-      errors: [{ messageId: 'incorrectOrder' }],
-      output: `
+            errors: [{ messageId: 'incorrectOrder' }],
+            output: `
         <Box sx={[{ display: 'flex', backgroundColor: 'blue' }]} />
       `,
-    },
-  ],
+        },
+    ],
 });
+//# sourceMappingURL=sort-sx-keys.test.js.map
