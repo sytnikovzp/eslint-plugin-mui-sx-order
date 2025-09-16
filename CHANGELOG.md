@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.1.36...v1.2.0) (2025-09-16)
+
+
+### Features
+
+* rewrite plugin in TypeScript, upgrade to v2.0.0 ([3126a50](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/3126a50bd3dd9851311d4851ab158428c252516b))
+
+
+### Bug Fixes
+
+* changed main folder from src to lib ([3ae8ed4](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/3ae8ed4185e4bb76b87c91202bec31ff24207960))
+* changed relative imports to imports via alias ([d055ea3](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/d055ea329fc7c78ab78a6bdc03385f338723cbf1))
+* fixed types ([a4b7bac](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/a4b7bacbf378dab6b59c5a3bbe06bb66f72937bf))
+* tests ([3c39fca](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/3c39fca4d75a18e80991a8489eaa72f0be570448))
+
 ## [1.1.36](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.1.35...v1.1.36) (2025-07-20)
 
 
