@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.2.1...v1.3.0) (2025-09-26)
+
+
+### Features
+
+* migrate plugin to TypeScript with improved type safety ([cad5b88](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/cad5b883b831277643c7e2f80c74706a0fb44196))
+
 ## [1.2.1](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.2.0...v1.2.1) (2025-09-26)
 
 
