@@ -1,11 +1,12 @@
 {
   "name": "eslint-plugin-mui-sx-order",
-  "version": "1.2.0",
+  "version": "1.1.36",
   "description": "Auto-sorts MUI sx/style props for clean, consistent code with ESLint",
-  "main": "dist/index.js",
+  "main": "index.js",
   "type": "commonjs",
   "files": [
-    "dist/"
+    "index.js",
+    "lib/"
   ],
   "keywords": [
     "eslint",
@@ -43,9 +44,7 @@
     "access": "public"
   },
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "npm run clean && tsc",
-    "test": "mocha --require ts-node/register --require tsconfig-paths/register tests/**/*.test.ts"
+    "test": "mocha tests/**/*.test.js"
   },
   "license": "MIT",
   "repository": {
@@ -63,15 +62,6 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@types/eslint": "^9.6.1",
-    "@types/node": "^24.5.0",
-    "@typescript-eslint/parser": "^8.44.0",
-    "@typescript-eslint/utils": "^8.44.0",
-    "eslint": "^8.57.1",
-    "mocha": "^11.7.2",
-    "rimraf": "^6.0.1",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.9.2"
+    "mocha": "^11.7.1"
   }
 }
