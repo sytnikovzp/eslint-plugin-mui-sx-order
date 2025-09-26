@@ -4,7 +4,7 @@
   <img width="576" height="384" src="./assets/demo.gif" alt="Demo GIF showing sorting sx properties automatically">
 </p>
 
-An ESLint plugin that automatically sorts **Material-UI (MUI) `sx` style properties** for consistent, clean, and maintainable code. Supports JavaScript and TypeScript projects.
+An ESLint plugin that automatically sorts **Material-UI (MUI) `sx` style properties** for consistent, clean, and maintainable code. Built with TypeScript and supports JavaScript and TypeScript projects.
 
 <p align="center">
   <a href="https://www.npmjs.com/package/eslint-plugin-mui-sx-order">
@@ -45,6 +45,7 @@ This plugin:
 - 🔥 Supports pseudo-classes, nested selectors, and media query keys
 - 🛠 Fully compatible with `eslint --fix`
 - 🚀 Supports JavaScript and TypeScript projects out of the box
+- 📦 Built with TypeScript for better type safety and maintainability
 - ⚡ Zero dependencies → ultra-fast linting
 
 ---
@@ -140,6 +141,43 @@ Ensure a **consistent style guide** for all MUI projects in your team.
 Great for **large codebases** where property order matters for readability.
 
 ---
+
+## 🛠 Development
+
+This plugin is built with TypeScript for better type safety and maintainability.
+
+### Prerequisites
+- Node.js >= 18
+- npm or yarn
+
+### Setup
+```bash
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Run tests
+npm test
+
+# Watch mode for development
+npm run dev
+```
+
+### Project Structure
+```
+src/
+├── index.ts                 # Main plugin entry point
+├── lib/
+│   ├── types.ts            # TypeScript type definitions
+│   ├── rules/
+│   │   └── sort-sx-keys.ts # Main rule implementation
+│   └── utils/
+│       ├── preferredOrder.ts    # CSS property ordering
+│       ├── propertyUtils.ts     # Utility functions
+│       └── checkAndReport.ts    # Linting logic
+```
 
 ## 📜 License
 

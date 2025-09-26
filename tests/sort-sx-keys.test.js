@@ -1,5 +1,5 @@
 const { RuleTester } = require('eslint');
-const rule = require('../lib/rules/sort-sx-keys');
+const rule = require('../dist/lib/rules/sort-sx-keys').default;
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -33,8 +33,8 @@ ruleTester.run('sort-sx-keys', rule, {
   margin: 5,
 };`,
       output: `const style = {
-  margin: 5,
-  padding: 10,
+margin: 5,
+padding: 10
 };`,
       errors: [{ messageId: 'incorrectOrder' }],
     },

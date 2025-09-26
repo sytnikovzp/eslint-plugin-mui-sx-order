@@ -1,4 +1,4 @@
-const preferredOrder = [
+const preferredOrder: readonly string[] = [
   // Positioning
   'position',
   'top',
@@ -176,14 +176,13 @@ const preferredOrder = [
   'md',
   'lg',
   'xl',
-];
+] as const;
 
-function getOrder(key) {
+function getOrder(key: string): number {
   const index = preferredOrder.indexOf(key);
-
   return index === -1
     ? preferredOrder.length + (typeof key === 'string' ? key.charCodeAt(0) : 0)
     : index;
 }
 
-module.exports = { preferredOrder, getOrder };
+export { preferredOrder, getOrder };

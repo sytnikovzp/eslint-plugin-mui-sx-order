@@ -1,13 +1,13 @@
-const { getOrder } = require('../utils/preferredOrder');
-const { isStyleObjectName } = require('../utils/propertyUtils');
-const { checkAndReport } = require('../utils/checkAndReport');
+import { RuleModule, RuleListener, RuleContext, JSXAttribute, VariableDeclarator, ExportNamedDeclaration, CallExpression } from '../types';
+import { getOrder } from '../utils/preferredOrder';
+import { isStyleObjectName } from '../utils/propertyUtils';
+import { checkAndReport } from '../utils/checkAndReport';
 
-module.exports = {
+const rule: RuleModule = {
   meta: {
     type: 'suggestion',
     docs: {
-      description:
-        'Sort MUI sx keys or style objects according to best practice',
+      description: 'Sort MUI sx keys or style objects according to best practice',
       recommended: false,
     },
     fixable: 'code',
@@ -17,9 +17,9 @@ module.exports = {
     },
   },
 
-  create(context) {
+  create(context: RuleContext): RuleListener {
     return {
-      JSXAttribute(node) {
+      JSXAttribute(node: JSXAttribute) {
         if (
           node.name.name !== 'sx' ||
           !node.value ||
@@ -32,9 +32,10 @@ module.exports = {
         checkAndReport(context, node.value.expression, getOrder);
       },
 
-      VariableDeclarator(node) {
+      VariableDeclarator(node: VariableDeclarator) {
         if (
           node.id &&
+          node.id.type === 'Identifier' &&
           isStyleObjectName(node.id.name) &&
           node.init &&
           node.init.type === 'ObjectExpression'
@@ -43,7 +44,7 @@ module.exports = {
         }
       },
 
-      ExportNamedDeclaration(node) {
+      ExportNamedDeclaration(node: ExportNamedDeclaration) {
         if (
           node.declaration &&
           node.declaration.type === 'VariableDeclaration'
@@ -51,6 +52,7 @@ module.exports = {
           for (const decl of node.declaration.declarations) {
             if (
               decl.id &&
+              decl.id.type === 'Identifier' &&
               isStyleObjectName(decl.id.name) &&
               decl.init &&
               decl.init.type === 'ObjectExpression'
@@ -61,10 +63,12 @@ module.exports = {
         }
       },
 
-      CallExpression(node) {
+      CallExpression(node: CallExpression) {
         if (
+          node.callee.type === 'Identifier' &&
           node.callee.name === 'createStyles' &&
           node.arguments.length &&
+          node.arguments[0] &&
           node.arguments[0].type === 'ObjectExpression'
         ) {
           checkAndReport(context, node.arguments[0], getOrder);
@@ -73,3 +77,5 @@ module.exports = {
     };
   },
 };
+
+export default rule;
