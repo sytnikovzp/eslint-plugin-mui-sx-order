@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.2](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.3.1...v1.3.2) (2025-09-27)
+
+
+### Bug Fixes
+
+* improve style object name detection and prevent duplicate rule triggers ([1e416aa](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/1e416aa36287bf4971175178d61cb835c2dc5312))
+
 ## [1.3.1](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.3.0...v1.3.1) (2025-09-26)
 
 
