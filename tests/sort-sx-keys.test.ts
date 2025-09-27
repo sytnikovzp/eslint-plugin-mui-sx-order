@@ -48,6 +48,12 @@ ruleTester.run('sort-sx-keys', rule, {
   height: '100%',
 };`,
     },
+    {
+      code: `export const stylesAuthenticatedUserBlockBox = {
+  display: 'flex',
+  alignItems: 'center',
+};`,
+    },
   ],
   invalid: [
     {
@@ -80,6 +86,17 @@ display: 'flex',
 margin: '16px',
 padding: '8px',
 backgroundColor: '#f5f5f5'
+};`,
+      errors: [{ messageId: 'incorrectOrder' }],
+    },
+    {
+      code: `export const stylesAuthenticatedUserBlockBox = {
+  alignItems: 'center',
+  display: 'flex',
+};`,
+      output: `export const stylesAuthenticatedUserBlockBox = {
+display: 'flex',
+alignItems: 'center'
 };`,
       errors: [{ messageId: 'incorrectOrder' }],
     },

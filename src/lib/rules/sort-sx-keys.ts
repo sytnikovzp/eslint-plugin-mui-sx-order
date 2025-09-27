@@ -33,6 +33,12 @@ const rule: RuleModule = {
       },
 
       VariableDeclarator(node: VariableDeclarator) {
+        // Skip if this is inside an ExportNamedDeclaration (handled separately)
+        if (node.parent && node.parent.type === 'VariableDeclaration' && 
+            node.parent.parent && node.parent.parent.type === 'ExportNamedDeclaration') {
+          return;
+        }
+
         if (
           node.id &&
           node.id.type === 'Identifier' &&
