@@ -15,13 +15,21 @@ export function checkAndReport(
     return;
   }
 
+  // First, recursively check nested objects
+  properties.forEach((prop: Property) => {
+    if (prop.type === 'Property' && prop.value && prop.value.type === 'ObjectExpression') {
+      checkAndReport(context, prop.value, getOrder);
+    }
+  });
+
   // Get property names and their order indices
   const propertyOrders = properties
     .map((prop: Property, index: number) => {
-      if (prop.type === 'Property' && prop.key.type === 'Identifier') {
+      if (prop.type === 'Property' && (prop.key.type === 'Identifier' || prop.key.type === 'Literal')) {
+        const keyName = prop.key.type === 'Identifier' ? prop.key.name : String(prop.key.value);
         return {
-          name: prop.key.name,
-          order: getOrder(prop.key.name),
+          name: keyName,
+          order: getOrder(keyName),
           originalIndex: index,
           property: prop,
         };

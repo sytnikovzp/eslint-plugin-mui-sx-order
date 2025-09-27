@@ -54,6 +54,21 @@ ruleTester.run('sort-sx-keys', rule, {
   alignItems: 'center',
 };`,
     },
+    {
+      code: `const styles = {
+  position: 'relative',
+  '&:hover': {
+    backgroundColor: '#f5f5f5',
+    transform: 'scale(1.05)',
+  },
+  '&:before': {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    content: '""',
+  },
+};`,
+    },
   ],
   invalid: [
     {
