@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.3.2...v1.4.0) (2025-09-27)
+
+
+### Features
+
+* add support for nested object property sorting ([a350336](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/a3503364004ec81726728113b5e3cb9c9c8c0144))
+
 ## [1.3.2](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.3.1...v1.3.2) (2025-09-27)
 
 
