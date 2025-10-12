@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.4.0...v1.5.0) (2025-10-12)
+
+
+### Features
+
+* expose rule as sort-sx-properties with sort-sx-keys alias ([6e9d497](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/6e9d497d59932af1de01d27922eca168fe3c5434))
+* update devDependencies ([3d52b5d](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/3d52b5dc7ac6270cd0cd91cc9dd96c9c8c79b51c))
+
 ## [1.4.0](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.3.2...v1.4.0) (2025-09-27)
 
 
