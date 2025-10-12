@@ -23,51 +23,59 @@ export function checkAndReport(
   });
 
   // Get property names and their order indices
-  const propertyOrders = properties
-    .map((prop: Property, index: number) => {
-      if (prop.type === 'Property' && (prop.key.type === 'Identifier' || prop.key.type === 'Literal')) {
-        const keyName = prop.key.type === 'Identifier' ? prop.key.name : String(prop.key.value);
-        return {
-          name: keyName,
-          order: getOrder(keyName),
-          originalIndex: index,
-          property: prop,
-        };
+  const makeOrderItem = (prop: any, index: number) => {
+    const keyName = prop.key.type === 'Identifier' ? prop.key.name : String(prop.key.value);
+    return {
+      name: keyName,
+      order: getOrder(keyName),
+      originalIndex: index,
+      property: prop,
+    };
+  };
+
+  // Build contiguous Property segments, split by non-Property (e.g., SpreadElement)
+  const segments: Array<{ items: Array<any>; indices: number[] }> = [];
+  const indexToSegment: number[] = Array(properties.length).fill(-1);
+  let currentItems: Array<any> = [];
+  let currentIndices: number[] = [];
+  properties.forEach((prop: any, index: number) => {
+    if (prop.type === 'Property' && (prop.key.type === 'Identifier' || prop.key.type === 'Literal')) {
+      currentItems.push(makeOrderItem(prop, index));
+      currentIndices.push(index);
+    } else {
+      if (currentItems.length) {
+        const segIdx = segments.push({ items: currentItems, indices: currentIndices }) - 1;
+        currentIndices.forEach((i) => (indexToSegment[i] = segIdx));
       }
-      return null;
-    })
-    .filter((item: any): item is NonNullable<typeof item> => item !== null);
-
-  // Check if properties are already sorted
-  const isSorted = propertyOrders.every((item: any, index: number) => {
-    if (index === 0) return true;
-    return item.order >= propertyOrders[index - 1]!.order;
+      currentItems = [];
+      currentIndices = [];
+    }
   });
+  if (currentItems.length) {
+    const segIdx = segments.push({ items: currentItems, indices: currentIndices }) - 1;
+    currentIndices.forEach((i) => (indexToSegment[i] = segIdx));
+  }
 
-  if (isSorted) {
+  // Check sortedness per segment
+  const allSegmentsSorted = segments.every((seg) =>
+    seg.items.every((item: any, idx: number) => (idx === 0 ? true : item.order >= seg.items[idx - 1]!.order))
+  );
+
+  if (allSegmentsSorted) {
     return;
   }
 
-  // Sort properties by order
-  const sortedProperties = [...propertyOrders].sort((a, b) => {
-    if (a.order !== b.order) {
-      return a.order - b.order;
-    }
-    // If order is the same, maintain original order
-    return a.originalIndex - b.originalIndex;
-  });
+  // (no global sorted list; sorting will be applied per segment only)
 
   const sourceCode = context.getSourceCode();
-
-  // Determine if it's safe to autofix: only Properties, no spread/computed, and no inline comments inside object
-  const hasOnlyPlainProperties = properties.every((prop: any) => prop && prop.type === 'Property');
 
   const objectText = sourceCode.getText(node);
   const hasInlineComments = /\/\*|\/\//.test(
     objectText.slice(objectText.indexOf('{') + 1, objectText.lastIndexOf('}'))
   );
 
-  const safeToFix = hasOnlyPlainProperties && !hasInlineComments;
+  // Allow spreads; we will sort only within contiguous Property segments
+  const safeToFix = !hasInlineComments;
 
   // Report the violation; provide a fix only if considered safe
   if (!safeToFix) {
@@ -82,16 +90,49 @@ export function checkAndReport(
     node,
     messageId: 'incorrectOrder',
     fix(fixer: any) {
-      const sortedSource = sortedProperties
-        .map((item, index) => {
-          const property = item.property;
-          const propertyText = sourceCode.getText(property);
-          // Keep existing multiline replacement (tests rely on it)
-          return index < sortedProperties.length - 1 ? `${propertyText},` : propertyText;
-        })
+      // Precompute sorted versions per segment
+      const sortedBySegment: Array<Array<any>> = segments.map((seg) => {
+        const sorted = [...seg.items].sort((a, b) => (a.order === b.order ? a.originalIndex - b.originalIndex : a.order - b.order));
+        return sorted;
+      });
+
+      // Build output elements while preserving non-Property nodes
+      const outputElements: string[] = [];
+      const segmentOffsets: number[] = Array(segments.length).fill(0);
+      properties.forEach((prop: any, idx: number) => {
+        if (prop.type === 'Property' && (prop.key.type === 'Identifier' || prop.key.type === 'Literal')) {
+          const segIdxRaw = indexToSegment[idx];
+          const segIdx: number = typeof segIdxRaw === 'number' ? segIdxRaw : -1;
+          let text: string;
+          if (segIdx >= 0 && segIdx < sortedBySegment.length) {
+            const segArr: any[] = sortedBySegment[segIdx] ?? [];
+            const offRaw = segmentOffsets[segIdx];
+            const off: number = typeof offRaw === 'number' ? offRaw : 0;
+            if (off < segArr.length) {
+              const nextItem = segArr[off];
+              segmentOffsets[segIdx] = off + 1;
+              text = sourceCode.getText(nextItem.property);
+            } else {
+              text = sourceCode.getText(prop);
+            }
+          } else {
+            // Fallback to original property text
+            text = sourceCode.getText(prop);
+          }
+          outputElements.push(text);
+        } else {
+          // Non-Property element (e.g., SpreadElement) — keep as-is
+          const text = sourceCode.getText(prop);
+          outputElements.push(text);
+        }
+      });
+
+      // Join with commas and newlines; last element without trailing comma
+      const body = outputElements
+        .map((el, i) => (i < outputElements.length - 1 ? `${el},` : el))
         .join('\n');
 
-      return fixer.replaceText(node, `{\n${sortedSource}\n}`);
+      return fixer.replaceText(node, `{\n${body}\n}`);
     },
   });
 }
