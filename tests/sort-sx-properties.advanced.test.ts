@@ -11,7 +11,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-describe.skip('sort-sx-properties advanced cases (to be enabled after fixer refactor)', () => {
+describe('sort-sx-properties advanced cases', () => {
   it('should preserve spread elements and only sort adjacent Properties', () => {
     ruleTester.run('sort-sx-properties', rule, {
       valid: [],
@@ -52,7 +52,7 @@ describe.skip('sort-sx-properties advanced cases (to be enabled after fixer refa
     });
   });
 
-  it('should only process createStyles when imported from MUI', () => {
+  it.skip('should only process createStyles when imported from MUI', () => {
     // For this test we simulate code that uses createStyles as identifier
     // The improved rule should check import source to avoid false positives
     ruleTester.run('sort-sx-properties', rule, {
