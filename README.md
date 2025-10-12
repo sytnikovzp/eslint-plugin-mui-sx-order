@@ -1,10 +1,24 @@
 # 🚀 ESLint Plugin to Auto-Sort MUI sx Properties
 
 <p align="center">
-  <img width="576" height="384" src="./assets/demo.gif" alt="Demo GIF showing sorting sx properties automatically">
+  <img width="576" height="384" src="./assets/demo.gif" alt="ESLint rule autofix demo: auto sort Material-UI (MUI) sx properties (before/after)">
+  
 </p>
 
-An ESLint plugin that automatically sorts **Material-UI (MUI) `sx` style properties** for consistent, clean, and maintainable code. Built with TypeScript and supports JavaScript and TypeScript projects.
+An ESLint plugin and rule with autofix that automatically sorts **Material-UI (MUI) `sx` style properties** for consistent, clean, and maintainable code. Works great with React/Next.js, Prettier, JavaScript and TypeScript.
+
+---
+
+## Table of Contents
+
+- [Why Use This Plugin?](#-why-use-this-plugin)
+- [Key Features](#-key-features)
+- [Install](#-install)
+- [Configuration](#-configuration-example)
+- [Usage & Auto-fix](#-usage--auto-fix)
+- [Before / After (Autofix)](#before--after-autofix)
+- [FAQ](#faq)
+- [Development](#-development)
 
 <p align="center">
   <a href="https://www.npmjs.com/package/eslint-plugin-mui-sx-order">
@@ -41,7 +55,7 @@ This plugin:
 
 ## ✨ Key Features
 
-- 📦 **Automatic sorting** of all `sx` properties, even nested objects
+- 📦 **Automatic sorting (ESLint rule with autofix)** of all `sx` properties, even nested objects
 - 🔥 Supports pseudo-classes, nested selectors, and media query keys
 - 🛠 Fully compatible with `eslint --fix`
 - 🚀 Supports JavaScript and TypeScript projects out of the box
@@ -53,7 +67,7 @@ This plugin:
 ## 🔥 Why not just use Prettier?
 
 Prettier is great for formatting, but it doesn’t understand the logical groups of MUI sx properties.
-This plugin enforces a best-practice order:
+This ESLint rule enforces a best-practice order (optimized for MUI System `sx`):
 
 1. **Positioning**: `position`, `top`, `right`, `zIndex`, and others.
 2. **Display & Layout**: `display`, `boxSizing`, `visibility`, and others.
@@ -134,6 +148,76 @@ npx eslint --fix .
 This will sort all sx properties in your project.
 
 ---
+
+## Before / After (Autofix)
+
+Before (unsorted `sx`):
+
+```tsx
+// React / MUI
+<Box sx={{ padding: 2, margin: 1, backgroundColor: '#eee' }} />
+```
+
+After (autofix by ESLint rule):
+
+```tsx
+<Box sx={{ margin: 1, padding: 2, backgroundColor: '#eee' }} />
+```
+
+Multiline object:
+
+```js
+// Before
+const sx = {
+  backgroundColor: '#f5f5f5',
+  position: 'relative',
+  padding: 8,
+  margin: 16,
+  display: 'flex',
+};
+
+// After (eslint --fix)
+const sx = {
+  position: 'relative',
+  display: 'flex',
+  margin: 16,
+  padding: 8,
+  backgroundColor: '#f5f5f5',
+};
+```
+
+Responsive and nested selectors are handled too:
+
+```js
+const sx = {
+  sm: { margin: 1, padding: 2 },
+  '&:hover': { backgroundColor: '#f5f5f5' },
+};
+```
+
+---
+
+## FAQ
+
+- **Is this compatible with Prettier?**  
+  Yes. Prettier handles formatting; this plugin enforces logical property order via an ESLint rule with autofix.
+
+- **Will it reorder across spread props?**  
+  No. `...spread` blocks are preserved; the rule safely reorders only adjacent properties around them.
+
+- **Does it sort nested objects and responsive breakpoints?**  
+  Yes. Nested objects (e.g., `&:hover`) and responsive keys (`xs`, `sm`, `md`, `lg`, `xl`) are supported.
+
+- **Does it touch non-MUI code?**  
+  The rule targets `sx`/style-like objects; for `createStyles`, it only applies when imported from MUI packages.
+
+- **What ESLint/Node versions are supported?**  
+  Node.js 18+, ESLint 8+. Tested with React 18 and Next.js.
+
+Useful links:
+
+- MUI System `sx`: https://mui.com/system/getting-started/the-sx-prop/
+- ESLint Rules and Autofix: https://eslint.org/docs/latest/extend/custom-rules
 
 ## 📢 Perfect for Teams & Open Source Projects
 
