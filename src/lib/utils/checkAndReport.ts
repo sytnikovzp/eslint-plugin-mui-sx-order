@@ -57,25 +57,40 @@ export function checkAndReport(
     return a.originalIndex - b.originalIndex;
   });
 
-  // Report the violation with auto-fix
+  const sourceCode = context.getSourceCode();
+
+  // Determine if it's safe to autofix: only Properties, no spread/computed, and no inline comments inside object
+  const hasOnlyPlainProperties = properties.every((prop: any) => prop && prop.type === 'Property');
+
+  const objectText = sourceCode.getText(node);
+  const hasInlineComments = /\/\*|\/\//.test(
+    objectText.slice(objectText.indexOf('{') + 1, objectText.lastIndexOf('}'))
+  );
+
+  const safeToFix = hasOnlyPlainProperties && !hasInlineComments;
+
+  // Report the violation; provide a fix only if considered safe
+  if (!safeToFix) {
+    context.report({
+      node,
+      messageId: 'incorrectOrder',
+    });
+    return;
+  }
+
   context.report({
     node,
     messageId: 'incorrectOrder',
     fix(fixer: any) {
-      const sourceCode = context.getSourceCode();
       const sortedSource = sortedProperties
         .map((item, index) => {
           const property = item.property;
           const propertyText = sourceCode.getText(property);
-          
-          // Add comma if not the last property
-          return index < sortedProperties.length - 1 
-            ? `${propertyText},` 
-            : propertyText;
+          // Keep existing multiline replacement (tests rely on it)
+          return index < sortedProperties.length - 1 ? `${propertyText},` : propertyText;
         })
         .join('\n');
 
-      // Replace the entire object expression
       return fixer.replaceText(node, `{\n${sortedSource}\n}`);
     },
   });
