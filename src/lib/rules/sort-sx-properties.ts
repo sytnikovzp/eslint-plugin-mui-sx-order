@@ -27,6 +27,34 @@ const rule: RuleModule = {
   },
 
   create(context: RuleContext): RuleListener {
+    // Collect local identifiers for createStyles imported from MUI packages
+    const muiCreateStylesNames = new Set<string>();
+    try {
+      const ast: any = (context.getSourceCode() as any).ast;
+      if (ast && Array.isArray(ast.body)) {
+        for (const node of ast.body) {
+          if (
+            node.type === 'ImportDeclaration' &&
+            node.source &&
+            typeof node.source.value === 'string'
+          ) {
+            const src: string = node.source.value;
+            if (/^@mui\//.test(src)) {
+              for (const spec of node.specifiers || []) {
+                if (
+                  spec.type === 'ImportSpecifier' &&
+                  spec.imported &&
+                  spec.imported.name === 'createStyles'
+                ) {
+                  muiCreateStylesNames.add(spec.local?.name || 'createStyles');
+                }
+              }
+            }
+          }
+        }
+      }
+    } catch {}
+
     return {
       JSXAttribute(node: JSXAttribute) {
         if (
@@ -85,7 +113,7 @@ const rule: RuleModule = {
       CallExpression(node: CallExpression) {
         if (
           node.callee.type === 'Identifier' &&
-          node.callee.name === 'createStyles' &&
+          muiCreateStylesNames.has(node.callee.name) &&
           node.arguments.length &&
           node.arguments[0] &&
           node.arguments[0].type === 'ObjectExpression'
