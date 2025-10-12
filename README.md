@@ -147,10 +147,12 @@ Great for **large codebases** where property order matters for readability.
 This plugin is built with TypeScript for better type safety and maintainability.
 
 ### Prerequisites
+
 - Node.js >= 18
 - npm or yarn
 
 ### Setup
+
 ```bash
 # Install dependencies
 npm install
@@ -166,13 +168,14 @@ npm run dev
 ```
 
 ### Project Structure
+
 ```
 src/
 ├── index.ts                 # Main plugin entry point
 ├── lib/
 │   ├── types.ts            # TypeScript type definitions
 │   ├── rules/
-│   │   └── sort-sx-keys.ts # Main rule implementation
+│   │   └── sort-sx-properties.ts # Main rule implementation
 │   └── utils/
 │       ├── preferredOrder.ts    # CSS property ordering
 │       ├── propertyUtils.ts     # Utility functions

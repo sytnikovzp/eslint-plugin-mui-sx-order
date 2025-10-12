@@ -1,5 +1,5 @@
 const { RuleTester } = require('eslint');
-const rule = require('../dist/lib/rules/sort-sx-keys').default;
+const rule = require('../dist/lib/rules/sort-sx-properties').default;
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -11,7 +11,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run('sort-sx-keys', rule, {
+ruleTester.run('sort-sx-properties', rule, {
   valid: [
     {
       code: `const style = {

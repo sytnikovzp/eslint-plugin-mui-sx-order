@@ -1,4 +1,12 @@
-import { RuleModule, RuleListener, RuleContext, JSXAttribute, VariableDeclarator, ExportNamedDeclaration, CallExpression } from '../types';
+import {
+  RuleModule,
+  RuleListener,
+  RuleContext,
+  JSXAttribute,
+  VariableDeclarator,
+  ExportNamedDeclaration,
+  CallExpression,
+} from '../types';
 import { getOrder } from '../utils/preferredOrder';
 import { isStyleObjectName } from '../utils/propertyUtils';
 import { checkAndReport } from '../utils/checkAndReport';
@@ -7,7 +15,8 @@ const rule: RuleModule = {
   meta: {
     type: 'suggestion',
     docs: {
-      description: 'Sort MUI sx keys or style objects according to best practice',
+      description:
+        'Sort MUI sx properties or style objects according to best practice',
       recommended: false,
     },
     fixable: 'code',
@@ -34,8 +43,12 @@ const rule: RuleModule = {
 
       VariableDeclarator(node: VariableDeclarator) {
         // Skip if this is inside an ExportNamedDeclaration (handled separately)
-        if (node.parent && node.parent.type === 'VariableDeclaration' && 
-            node.parent.parent && node.parent.parent.type === 'ExportNamedDeclaration') {
+        if (
+          node.parent &&
+          node.parent.type === 'VariableDeclaration' &&
+          node.parent.parent &&
+          node.parent.parent.type === 'ExportNamedDeclaration'
+        ) {
           return;
         }
 

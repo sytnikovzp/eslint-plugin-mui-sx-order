@@ -1,8 +1,9 @@
-import sortSxKeys from './lib/rules/sort-sx-keys';
+import sortSxProperties from './lib/rules/sort-sx-properties';
 
 const plugin = {
   rules: {
-    'sort-sx-keys': sortSxKeys,
+    'sort-sx-properties': sortSxProperties,
+    'sort-sx-keys': sortSxProperties,
   },
 };
 

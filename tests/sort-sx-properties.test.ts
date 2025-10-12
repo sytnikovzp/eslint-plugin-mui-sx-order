@@ -1,5 +1,5 @@
 import { RuleTester } from 'eslint';
-import rule from '../dist/lib/rules/sort-sx-keys';
+import rule from '../dist/lib/rules/sort-sx-properties';
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -11,7 +11,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run('sort-sx-keys', rule, {
+ruleTester.run('sort-sx-properties', rule, {
   valid: [
     {
       code: `const style = {
