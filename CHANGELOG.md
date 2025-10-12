@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.5.0...v1.6.0) (2025-10-12)
+
+
+### Features
+
+* handle createStyles only when imported from MUI packages ([fd9006d](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/fd9006d0429d29e126e54040f29b2b9831d610b6))
+
+
+### Bug Fixes
+
+* make fixer conservative to avoid unsafe autofixes with spreads and comments ([446b2be](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/446b2bec296b188528759ea2c748ff667c709c49))
+* preserve comments/format and reorder only within contiguous property segments ([46e09cd](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/46e09cd005ae631a0e34c5456bebe0757955dd9f))
+* sort only adjacent properties and preserve spread elements ([8ca9bf8](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/8ca9bf8a3aa1ad7acf41a34291e26d162be76960))
+
 ## [1.5.0](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.4.0...v1.5.0) (2025-10-12)
 
 
