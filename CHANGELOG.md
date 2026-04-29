@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.1](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.7.0...v1.7.1) (2026-04-29)
+
+
+### Bug Fixes
+
+* replace RuleContext.getSourceCode() with .sourceCode ([b1d8001](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/commit/b1d80012bdb29a33e66ccc54828f4a468600a977))
+
 ## [1.7.0](https://github.com/sytnikovzp/eslint-plugin-mui-sx-order/compare/v1.6.0...v1.7.0) (2025-10-12)
 
 
