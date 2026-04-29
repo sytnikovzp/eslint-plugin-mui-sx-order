@@ -30,7 +30,7 @@ const rule: RuleModule = {
     // Collect local identifiers for createStyles imported from MUI packages
     const muiCreateStylesNames = new Set<string>();
     try {
-      const ast: any = (context.getSourceCode() as any).ast;
+      const ast: any = (context.sourceCode as any).ast;
       if (ast && Array.isArray(ast.body)) {
         for (const node of ast.body) {
           if (

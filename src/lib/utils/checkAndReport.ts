@@ -95,7 +95,7 @@ export function checkAndReport(
 
   // (no global sorted list; sorting will be applied per segment only)
 
-  const sourceCode = context.getSourceCode();
+  const sourceCode = context.sourceCode;
 
   // Analyze for simple safe case
   const objectText = sourceCode.getText(node);
